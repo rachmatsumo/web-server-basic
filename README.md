@@ -1,150 +1,271 @@
-# web-server-basic
-Basic auto install for runing php project on Ubuntu (Php, Mysql, PhpMyAdmin)
+# 🚀 Web Server Basic - Ubuntu Setup
 
-1. Jadikan file bisa dieksekusi:
-   <code>chmod +x install-webserver.sh</code>
+Automated installation script for running PHP projects on Ubuntu with PHP 8.3, MySQL, and phpMyAdmin.
 
-2. Jalankan script:
-   <code>./install-webserver.sh</code>
+## ⚡ Quick Start
 
-Manual Installation :
+### Automated Installation
 
-<ol>
-   <li> 🧰 Install WSL + Ubuntu</li>
-   
-   Buka Command Prompt (CMD) atau PowerShell sebagai Administrator.
-   Jalankan:
-   
-   <code>wsl --install</code>
-   
-   Ini akan otomatis menginstal WSL2 dan Ubuntu versi default (biasanya Ubuntu 22.04 LTS). Setelah instalasi selesai, restart komputer. Saat Ubuntu terbuka pertama kali, buat username dan password Linux.
-   
-   ✅ Cek versi WSL:
-   
-   <code>wsl --list --verbose</code>
-   
-   Jika belum WSL2:
-   
-   <code>wsl --set-version Ubuntu-22.04 2</code>
-   
-   <li> 🌐 Update & Upgrade Sistem Ubuntu</li>
-   
-   Buka terminal Ubuntu (dari Start Menu):
-   
-   
-   <code>sudo apt update && sudo apt upgrade -y</code>
-   <code>sudo apt install software-properties-common ca-certificates lsb-release apt-transport-https curl -y</code>
-   
-   <li> 🧪 Install PHP 8.3 + Extensions</li>
-   Tambahkan repository ondrej/php (resmi & populer untuk versi PHP terbaru): 
-   <code>sudo add-apt-repository ppa:ondrej/php -y</code>
-   <code>sudo apt update</code>
-   
-   
-   Install PHP 8.3:
-   <code>sudo apt install php8.3 php8.3-cli php8.3-common php8.3-mbstring php8.3-xml php8.3-mysql php8.3-curl php8.3-zip php8.3-bcmath php8.3-intl -y</code>
-   
-   Cek versi:
-   
-   <code>php -v</code>
-   
-   
-   ✅ Output harus menunjukkan PHP 8.3.x
-   
-   <li> 🛢 Install MySQL Server</li>
-   <code>sudo apt install mysql-server -y</code>
-   Jalankan MySQL dan aktifkan auto-start:
-   <code>sudo systemctl start mysql<code>
-   <code>sudo systemctl enable mysql</code>
-   Amankan instalasi:
-   <code>sudo mysql_secure_installation</code>
-   Jawab pertanyaan dengan:
-   
-   VALIDATE PASSWORD PLUGIN → boleh pilih n jika untuk lokal.
-   
-   Set root password
-   
-   Hapus user anonymous → Y
-   Disallow root login remotely → Y
-   Hapus test database → Y
-   Reload privilege → Y
-   Login untuk tes:
-   <code>sudo mysql -u root -p</code>
-   
-   <li> 🖥 Install phpMyAdmin</li>
-   <code>sudo apt install phpmyadmin -y</code>   
-   Saat prompt pilih apache2, walau kita pakai CLI (tidak masalah, karena phpMyAdmin akan terinstal di /usr/share/phpmyadmin)
-   Pilih Yes untuk dbconfig-common
-   Masukkan password MySQL root saat diminta.
-   Integrasikan ke PHP built-in / Laravel:
-   Buat symlink ke /var/www/html:
-   <code>sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin</code>
-   Jika pakai PHP built-in server atau Laravel php artisan serve, cukup arahkan ke:
-   👉 http://localhost:8000/phpmyadmin (setelah serve)
-   Atau jika ingin pakai Apache:
-   
-   <code>sudo apt install apache2 libapache2-mod-php8.3 -y</code>
-   <code>sudo systemctl restart apache2</code>
-   
-   
-   Lalu akses:
-   👉 http://localhost/phpmyadmin
-   
-   <li> 📦 Install Composer</li>
-   Download installer:
-   
-   <code>curl -sS https://getcomposer.org/installer -o composer-setup.php</code>
-   
-   Install secara global:
-   <code>sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer</code>
+1. Make the script executable:
+```bash
+chmod +x install-webserver.sh
+```
 
-   Cek versi:
-   
-   <code>composer -V</code>
-   
-   
-   ✅ Output harus menampilkan Composer version ...
-   
-   <li> 🧰 Install Git & Setup GitHub </li>
-   Install Git:
-   <code>sudo apt install git -y</code>
-   Cek:
-   <code>git --version
-   
-   Konfigurasi nama & email:
-   
-   <code>git config --global user.name "Nama Kamu"</code>
-   <code>git config --global user.email "email@github.com"</code>
-   
-   Buat SSH Key untuk GitHub:
-   
-   <code>ssh-keygen -t ed25519 -C "email@github.com"</code>
-   
-   Tekan Enter saja saat diminta lokasi → pakai default ~/.ssh/id_ed25519
-   
-   Jalankan agent & tambah key:
-   
-   eval "$(ssh-agent -s)"
-   ssh-add ~/.ssh/id_ed25519
-   
-   Tampilkan public key untuk ditambahkan ke GitHub:
-   cat ~/.ssh/id_ed25519.pub
-   
-   Salin hasilnya → masuk ke GitHub → Settings → SSH and GPG keys
-    → klik New SSH key → paste.
-   
-   Tes koneksi:
-   ssh -T git@github.com
-   Jawab yes saat pertama kali.
-   
-   <li> 🧭 (Optional) Setup Laravel Project</li>
-   
-   Jika kamu ingin langsung jalanin project Laravel:
-   
-   <code>composer create-project laravel/laravel myapp</code>
-   <code>cd myapp</code>
-   <code>php artisan serve</code>
-      
-   Akses: 👉 http://localhost:8000
+2. Run the installation script:
+```bash
+./install-webserver.sh
+```
 
-</ol> 
+---
+
+## 📋 Manual Installation Guide
+
+### 1. 🧰 Install WSL + Ubuntu
+
+Open Command Prompt (CMD) or PowerShell as Administrator and run:
+
+```bash
+wsl --install
+```
+
+This will automatically install WSL2 and the default Ubuntu version (usually Ubuntu 22.04 LTS). After installation completes, restart your computer. When Ubuntu opens for the first time, create a Linux username and password.
+
+**Check WSL version:**
+```bash
+wsl --list --verbose
+```
+
+**If not using WSL2, upgrade it:**
+```bash
+wsl --set-version Ubuntu-22.04 2
+```
+
+---
+
+### 2. 🌐 Update & Upgrade Ubuntu System
+
+Open Ubuntu terminal (from Start Menu):
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install software-properties-common ca-certificates lsb-release apt-transport-https curl -y
+```
+
+---
+
+### 3. 🧪 Install PHP 8.3 + Extensions
+
+Add the ondrej/php repository (official & popular for latest PHP versions):
+
+```bash
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt update
+```
+
+Install PHP 8.3:
+
+```bash
+sudo apt install php8.3 php8.3-cli php8.3-common php8.3-mbstring php8.3-xml php8.3-mysql php8.3-curl php8.3-zip php8.3-bcmath php8.3-intl -y
+```
+
+**Verify installation:**
+```bash
+php -v
+```
+
+✅ Output should show PHP 8.3.x
+
+---
+
+### 4. 🛢 Install MySQL Server
+
+```bash
+sudo apt install mysql-server -y
+```
+
+**Start MySQL and enable auto-start:**
+```bash
+sudo systemctl start mysql
+sudo systemctl enable mysql
+```
+
+**Secure the installation:**
+```bash
+sudo mysql_secure_installation
+```
+
+Answer the prompts:
+- VALIDATE PASSWORD PLUGIN → Choose `n` for local development
+- Set root password
+- Remove anonymous users → `Y`
+- Disallow root login remotely → `Y`
+- Remove test database → `Y`
+- Reload privileges → `Y`
+
+**Test login:**
+```bash
+sudo mysql -u root -p
+```
+
+---
+
+### 5. 🖥 Install phpMyAdmin
+
+```bash
+sudo apt install phpmyadmin -y
+```
+
+During installation:
+- Select `apache2` when prompted (even if using PHP built-in server)
+- Choose `Yes` for dbconfig-common
+- Enter MySQL root password when asked
+
+**Create symlink to web directory:**
+```bash
+sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+```
+
+**Access phpMyAdmin:**
+- With PHP built-in server or Laravel: `http://localhost:8000/phpmyadmin`
+- With Apache: `http://localhost/phpmyadmin`
+
+**Optional - Install Apache:**
+```bash
+sudo apt install apache2 libapache2-mod-php8.3 -y
+sudo systemctl restart apache2
+```
+
+---
+
+### 6. 📦 Install Composer
+
+Download installer:
+```bash
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+```
+
+Install globally:
+```bash
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+```
+
+**Verify installation:**
+```bash
+composer -V
+```
+
+✅ Output should display Composer version
+
+---
+
+### 7. 🧰 Install Git & Setup GitHub
+
+**Install Git:**
+```bash
+sudo apt install git -y
+```
+
+**Verify installation:**
+```bash
+git --version
+```
+
+**Configure Git:**
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your-email@github.com"
+```
+
+**Generate SSH Key for GitHub:**
+```bash
+ssh-keygen -t ed25519 -C "your-email@github.com"
+```
+
+Press Enter to use default location: `~/.ssh/id_ed25519`
+
+**Start SSH agent and add key:**
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+**Display public key:**
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+Copy the output → Go to GitHub → Settings → SSH and GPG keys → Click "New SSH key" → Paste
+
+**Test connection:**
+```bash
+ssh -T git@github.com
+```
+
+Type `yes` when prompted for the first time.
+
+---
+
+### 8. 🧭 (Optional) Setup Laravel Project
+
+Create and run a new Laravel project:
+
+```bash
+composer create-project laravel/laravel myapp
+cd myapp
+php artisan serve
+```
+
+Access your Laravel app at: 👉 http://localhost:8000
+
+---
+
+## 🛠 What's Included
+
+- ✅ PHP 8.3 with essential extensions
+- ✅ MySQL Server
+- ✅ phpMyAdmin
+- ✅ Composer
+- ✅ Git with GitHub SSH setup
+- ✅ Ready for Laravel development
+
+---
+
+## 📝 Requirements
+
+- Windows 10/11 with WSL2 support
+- Ubuntu 22.04 LTS (or compatible version)
+- Administrator privileges
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+## 💡 Troubleshooting
+
+### MySQL won't start
+```bash
+sudo systemctl status mysql
+sudo journalctl -u mysql
+```
+
+### phpMyAdmin access denied
+Make sure you're using the correct MySQL root password and that the user has proper permissions.
+
+### SSH connection to GitHub fails
+Verify your SSH key is added to GitHub and the ssh-agent is running.
+
+--- 
+
+---
+
+Made with ❤️ for PHP developers
