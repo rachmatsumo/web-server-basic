@@ -2,10 +2,10 @@
 Basic auto install for runing php project on Ubuntu (Php, Mysql, PhpMyAdmin)
 
 1. Jadikan file bisa dieksekusi:
-   <script>chmod +x install-webserver.sh</script>
+   <code>chmod +x install-webserver.sh</code>
 
 2. Jalankan script:
-   <script>./install-webserver.sh</script>
+   <code>./install-webserver.sh</code>
 
 Manual Installation :
 
@@ -14,39 +14,39 @@ Manual Installation :
 Buka Command Prompt (CMD) atau PowerShell sebagai Administrator.
 Jalankan:
 
-<script>wsl --install</script>
+<code>wsl --install</code>
 
 Ini akan otomatis menginstal WSL2 dan Ubuntu versi default (biasanya Ubuntu 22.04 LTS). Setelah instalasi selesai, restart komputer. Saat Ubuntu terbuka pertama kali, buat username dan password Linux.
 
 ✅ Cek versi WSL:
 
-<script>wsl --list --verbose</script>
+<code>wsl --list --verbose</code>
 
 Jika belum WSL2:
 
-<script>wsl --set-version Ubuntu-22.04 2</script>
+<code>wsl --set-version Ubuntu-22.04 2</code>
 
 🌐 2. Update & Upgrade Sistem Ubuntu
 
 Buka terminal Ubuntu (dari Start Menu):
 
-<script>
+<code>
 sudo apt update && sudo apt upgrade -y
 sudo apt install software-properties-common ca-certificates lsb-release apt-transport-https curl -y
-</script>
+</code>
 
 🧪 3. Install PHP 8.3 + Extensions
 Tambahkan repository ondrej/php (resmi & populer untuk versi PHP terbaru):
-<script>
+<code>
 sudo add-apt-repository ppa:ondrej/php -y
 sudo apt update
-</script>
+</code>
 
 
 Install PHP 8.3:
-<script>
+<code>
   sudo apt install php8.3 php8.3-cli php8.3-common php8.3-mbstring php8.3-xml php8.3-mysql php8.3-curl php8.3-zip php8.3-bcmath php8.3-intl -y
-</script>
+</code>
 
 Cek versi:
 
